@@ -23,7 +23,7 @@ class X(stanford.SR830GPIB):
         return valores
 
 #stanford.SR830GPIB('GPIB0::8::INSTR')
-lockin = X('GPIB0::8::INSTR')
+#lockin = X('GPIB0::8::INSTR')
 
 # Caracteristicas del barrido
 inicioBarrido = 200
@@ -43,17 +43,15 @@ frecuencia = []
 r = []
 theta = []
 
-lockin.initialize() #inicializamos la comunicación
-for frecuencia in frecuencias:
-    lockin.frequency = frecuencia * ureg.hertz # seteamos la frecuencia
-    sleep(tiempoIntegracion*1.5) # le damos un tiempo al lockin para estabilizarse
-    valores = lockin.measure('rt') # medimos r y theta del lockin.
+with X('GPIB0::8::INSTR') as lockin: #inicializamos la comunicación
+    for frecuencia in frecuencias:
+        lockin.frequency = frecuencia * ureg.hertz # seteamos la frecuencia
+        sleep(tiempoIntegracion*1.5) # le damos un tiempo al lockin para estabilizarse
+        valores = lockin.measure('rt') # medimos r y theta del lockin.
     
-    r.append(valores[1])
-    theta.append(valores[2])
+        r.append(valores[1])
+        theta.append(valores[2])
     
-lockin.finalize() # finalizamos la comunicación
-# print(Tabla) # Esto deberia ser un return, save y/o plot
 
 pylab.plot(array(frecuencias), array(r))
 pylab.show()
