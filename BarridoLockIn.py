@@ -5,6 +5,7 @@ from time import sleep
 import pylab
 
 from numpy import array
+import numpy as np
 
 from lantz import Action, Feat, DictFeat, ureg
 
@@ -31,7 +32,7 @@ paso = 10
 
 
 # Barrido en frecuencias
-frecuencias = range(inicioBarrido, finalBarrido, paso)
+frecuencias = np.arange(inicioBarrido, finalBarrido, paso)
 
 # seteo del LockIn
 tiempoIntegracion = 0.3
@@ -48,12 +49,11 @@ for frecuencia in frecuencias:
     sleep(tiempoIntegracion*1.5) # le damos un tiempo al lockin para estabilizarse
     valores = lockin.measure('rt') # medimos r y theta del lockin.
     
-    frecuencia.append(frecuencia)
     r.append(valores[1])
     theta.append(valores[2])
     
 lockin.finalize() # finalizamos la comunicación
 # print(Tabla) # Esto deberia ser un return, save y/o plot
 
-pylab.plot(array(frecuencia), array(r))
+pylab.plot(array(frecuencias), array(r))
 pylab.show()
