@@ -1,7 +1,7 @@
 # importaciones
 from lantz.drivers import stanford
 from lantz import ureg
-import time
+from time import sleep
 import pylab
 
 from numpy import array
@@ -45,7 +45,7 @@ theta = []
 lockin.initialize() #inicializamos la comunicación
 for frecuencia in frecuencias:
     lockin.frequency = frecuencia * ureg.hertz # seteamos la frecuencia
-    time.sleep(tiempoIntegracion*1.5) # le damos un tiempo al lockin para estabilizarse
+    sleep(tiempoIntegracion*1.5) # le damos un tiempo al lockin para estabilizarse
     valores = lockin.measure('rt') # medimos r y theta del lockin.
     
     frecuencia.append(frecuencia)
