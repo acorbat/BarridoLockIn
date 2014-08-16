@@ -49,8 +49,8 @@ with X('GPIB0::8::INSTR') as lockin: #inicializamos la comunicación
         sleep(tiempoIntegracion*1.5) # le damos un tiempo al lockin para estabilizarse
         valores = lockin.measure('rt') # medimos r y theta del lockin.
     
-        r.append(valores[1])
-        theta.append(valores[2])
+        r.append(valores[0, 0])
+        theta.append(valores[0, 1])
     
 
 pylab.plot(array(frecuencias), array(r))
