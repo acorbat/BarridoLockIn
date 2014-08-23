@@ -1,13 +1,13 @@
 # importaciones
-from lantz.drivers import stanford
-from lantz import ureg
-from time import sleep
+import numpy as np
 import pylab
 
-from numpy import array
-import numpy as np
+from time import sleep
 
 from lantz import Action, Feat, DictFeat, ureg
+from lantz.drivers import stanford
+
+
 
 # Corregimos una de las funciones del driver de comunicación
 class X(stanford.SR830GPIB):
@@ -53,5 +53,5 @@ with X('GPIB0::8::INSTR') as lockin: #inicializamos la comunicación
         theta.append(valores[0, 1])
     
 
-pylab.plot(array(frecuencias), array(r))
+pylab.plot(np.asarray(frecuencias), np.asarray(r))
 pylab.show()
